@@ -1,0 +1,285 @@
+---
+---
+
+/*
+ * This file controls what is imported from /_sass
+ *
+ * Note that the files are processed in the order they are imported, so they are partly
+   sorted by the dependencies. Also, the first two lines of the file are required by Jekyll.
+ */
+
+@import
+    "vendor/breakpoint/breakpoint",
+
+    "themes",
+    "theme/{{ site.site_theme | default: 'default' | append: '_light' }}",
+    "theme/{{ site.site_theme | default: 'default' | append: '_dark' }}",
+
+    "include/mixins",
+    "vendor/susy/susy",
+
+    "layout/reset",
+    "layout/base",
+
+    "include/utilities",
+    "layout/tables",
+    "layout/buttons",
+    "layout/notices",
+    "layout/masthead",
+    "layout/navigation",
+    "layout/footer",
+    "syntax",
+
+    "layout/forms",
+
+    "layout/page",
+    "layout/archive",
+    "layout/sidebar",
+    "layout/json_cv",
+
+    "vendor/font-awesome/fontawesome",
+    "vendor/font-awesome/solid",
+    "vendor/font-awesome/brands"
+;
+
+@import "jekyll-theme-midnight";
+
+/* ============================================================
+   LAYOUT — center all page content
+   ============================================================ */
+:root {
+  --content-max: 1200px;
+  --gutter: 24px;
+  --accent: #60c0d0;
+  --accent-dim: rgba(96,192,208,0.12);
+  --rule-color: rgba(255,255,255,0.12);
+}
+
+#main-content,
+main,
+.page,
+.post,
+.container,
+.wrapper,
+.inner {
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  box-sizing: border-box;
+}
+
+/* prevent double padding when wrappers nest */
+#main-content .page,
+#main-content .post,
+main .page,
+main .post {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+body {
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+h1 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.35rem;
+  border-bottom: 1px solid var(--rule-color);
+  padding-bottom: 0.3rem;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* page-level h1 alignment */
+h1.page-title,
+.page > h1:first-of-type,
+.post > h1:first-of-type,
+main > h1:first-of-type,
+body > h1:first-of-type {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   MEDIA
+   ============================================================ */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+pre, code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* ============================================================
+   PROFILE LAYOUT  (home page) — photo left, bio right
+   ============================================================ */
+.profile-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+  padding: 2.5rem 0 2rem;
+}
+
+.profile-photo {
+  width: 190px;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 4px;
+  margin: 0;          /* override the global img centering */
+}
+
+.profile-text {
+  flex: 1;
+  font-size: 0.975rem;
+  line-height: 1.8;
+}
+
+.profile-text p {
+  margin-bottom: 1rem;
+}
+
+.profile-text strong {
+  font-size: 1.1rem;
+}
+
+.profile-links {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.profile-links a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.profile-links a:hover {
+  text-decoration: underline;
+}
+
+/* stack vertically on narrow screens */
+@media (max-width: 560px) {
+  .profile-layout {
+    flex-direction: column;
+  }
+  .profile-photo {
+    width: 140px;
+  }
+}
+
+/* ============================================================
+   RESEARCH PAGE — anchor TOC nav box
+   ============================================================ */
+.research-toc {
+  background: var(--accent-dim);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  padding: 0.8rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 0.88rem;
+  line-height: 1.9;
+}
+
+.research-toc strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+}
+
+.research-toc a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.research-toc a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* anchor target so headings aren't hidden behind a sticky header */
+.research-anchor {
+  display: block;
+  height: 0;
+  visibility: hidden;
+  scroll-margin-top: 4rem;
+}
+
+/* breathing room for research sections */
+a.research-anchor + h2 {
+  margin-top: 2.5rem;
+}
+
+hr.section-rule {
+  border: 0;
+  border-top: 1px solid var(--rule-color);
+  margin: 2.5rem 0;
+}
+
+.research-entry {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin: 2.5rem 0;
+}
+
+.research-entry__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.research-entry__text h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.research-summary {
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.section-rule {
+  margin: 2.5rem 0;
+}
+
+@media (max-width: 1000px) {
+  .research-entry {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .research-entry__image {
+    max-width: 420px;
+  }
+}
